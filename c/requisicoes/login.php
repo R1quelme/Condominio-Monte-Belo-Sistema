@@ -76,16 +76,99 @@ function esqueciSenha($post, $conexao)
     if(!envia_email(
         $emailModal,
         "Redefinir senha condominio Monte Belo",
-        "Mensagem de condominio Monte Belo
-        <br><br>
-    
-        <p>Uma solicitação de alteração de senha foi feita para este e-mail,
-        se nao foi voce, apenas ignore.</p>
-    
-        <p>Se realmente foi voce, clique no link abaixo para ser direcionado
-        novamente para o sistema e redefinir sua senha.</p>
+        "<html>
+
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+            <title>Demystifying Email Design</title>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        </head>
         
-        <a href='http://cada78caeb4a.ngrok.io/argon-dashboard-master/c/redefinir_senha.php?token={$token}'>Redefinir senha</a>"
+        <body style='margin: 0; padding: 0;'>
+            <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                <tr>
+                    <td>
+                        <table align='center' border='0' cellpadding='0' cellspacing='0' width='600'
+                            style='border-collapse: collapse;'>
+                            <tr>
+                                <td align='center' style='padding: 40px 0 30px 0;'>
+                                    <img src='https://3b8a0503541e.ngrok.io/argon-dashboard-master/c/montebelo.png'
+                                        alt='Logo condominio monte belo' width='504' height='273' style='display: block;' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor='#ffffff' style='padding: 40px 30px 40px 30px;'>
+                                    <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                                        <tr>
+                                            <td style='color: #153643; font-family: Arial, sans-serif; font-size: 24px;'>
+                                                Mensagem de condomínio Monte Belo
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style='padding: 10px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>
+        
+                                                <p>Uma solicitação de alteração de senha foi feita para este e-mail,
+                                                    se nao foi voce, apenas ignore.</p>
+        
+                                                <p>Se realmente foi voce, clique no botão abaixo para ser direcionado
+                                                    novamente para o sistema e redefinir sua senha.</p>
+        
+                                                <p>Atenciosamente,<br>
+                                                    Condomínio Monte Belo</p>
+                                            </td>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <style>
+                .bt {
+                    border: 1px solid #00527c;
+                    border-radius: 4px;
+                    display: inline-block;
+                    cursor: pointer;
+                    font-family: Verdana;
+                    font-weight: bold;
+                    font-size: 17px;
+                    padding: 12px 18px;
+                    text-decoration: none;
+                }
+        
+                .bt-vd {
+                    border-color: #00527c;
+                    background: linear-gradient(to bottom, #015e8db2 5%, #00527c 100%);
+                    box-shadow: inset 0px 0px 0px 0px #e3f1e3;
+                    color: #fff;
+                    text-shadow: 0px 1px 0px #00527c;
+                }
+        
+                .bt-vd:hover {
+                    background: linear-gradient(to bottom, #00527c 5%, #00527c 100%);
+                }
+        
+                .bt:active {
+                    position: relative;
+                    top: 2px;
+                }
+            </style>
+            <script>
+                function href() {
+                    window.location.assign('https://3b8a0503541e.ngrok.io/argon-dashboard-master/c/redefinir_senha.php?token={$token}');
+                }
+            </script>
+            <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                <tr>
+                    <td align='center'>
+                        <button class='bt bt-vd' onclick='href()'>Redefinir senha</button>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        
+        </html>"
     )){
         echo json_encode(['status' => false, 'MSG' => 'Falha ao enviar o e-mail']);
         exit;

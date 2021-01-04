@@ -47,7 +47,7 @@ if ($busca->num_rows > 0) {
                 `situacao` = 'I'
             WHERE
                 (`token` = '$token') 
-        ");
+        "); 
 
         if (!$insere_cadastro || !$inativa_token_criaCadastro) {
             echo json_encode(['status' => false, 'MSG' => 'Erro ao inserir cadastro.']);
@@ -58,85 +58,97 @@ if ($busca->num_rows > 0) {
             $email,
             "Cadastro Condomínio Monte Belo",
             "<html>
+
             <head>
             
-            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-            <title>Demystifying Email Design</title>
-            <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+                <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+                <title>Demystifying Email Design</title>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0' />
             </head>
-            <body style='margin: 0; padding: 0;'>
-            <table border='0' cellpadding='0' cellspacing='0' width='100%'>
-            <tr>
-            <td>
-            <table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse: collapse;'>
-            <tr>
-            <td align='center' bgcolor='#' style='padding: 40px 0 30px 0;'>
-            <img src=' https://0c7623a3196a.ngrok.io/argon-dashboard-master/c/montebelo.png' alt='Logo condominio monte belo' width='504' height='273' style='display: block;'/>
-            </td>
-            </tr>
-            <tr>
-            <td bgcolor='#ffffff' style='padding: 40px 30px 40px 30px;'>
-            <table border='0' cellpadding='0' cellspacing='0' width='100%'>
-            <tr>
-            <td style='color: #153643; font-family: Arial, sans-serif; font-size: 24px;'>
-            Mensagem de condomínio Monte Belo
-            </td>
-            </tr>
-            <tr>
-            <td style='padding: 10px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>
-    
-            <p>Olá $nome .</p> 
-            <p>Seu cadastro foi concluido com sucesso, seus dados para login são:
-            CPF: $cpf <br>
-            Senha: $senha <br><br></p>
-    
-            <p>Atenciosamente,<br>
-            Condomínio Monte Belo</p>
             
-            </table>
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            <tr>
-            <td bgcolor='#ee4c50' style='padding: 30px 30px 30px 30px;'>
-            <table border='0' cellpadding='0' cellspacing='0' width='100%'>
-            <tr>
-            <td width='75%' style='color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;'>
-            ® Condomínio Monte belo 
-    
-            <font color='#ffffff'>Mensagem enviada automaticamente, </font> favor nao responda 
-            </td>
-            <td width='75%' align='right'>
-            <table border='0' cellpadding='0' cellspacing='0'>
-            <tr>
-            <td>
-    
-            <img src='images/tw.gif' alt='Twitter' width='38' height='38' style='display: block;' border='0'/>
-    
-            </td>
-            <td style='font-size: 0; line-height: 0;' width='20'> </td>
-            <td>
-    
-            <img src='images/fb.gif' alt='Facebook' width='38' height='38' style='display: block;' border='0'/>
-    
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            </table>
-            </body>
+            <body style='margin: 0; padding: 0;'>
+                <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                    <tr>
+                        <td>
+                            <table align='center' border='0' cellpadding='0' cellspacing='0' width='600'
+                                style='border-collapse: collapse;'>
+                                <tr>
+                                    <td align='center' style='padding: 40px 0 30px 0;'>
+                                        <img src='https://7fa5923830c6.ngrok.io/argon-dashboard-master/c/montebelo.png'
+                                            alt='Logo condominio monte belo' width='504' height='273' style='display: block;' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor='#ffffff' style='padding: 40px 30px 40px 30px;'>
+                                        <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                                            <tr>
+                                                <td style='color: #153643; font-family: Arial, sans-serif; font-size: 24px;'>
+                                                    Mensagem de condomínio Monte Belo
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style='padding: 10px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>
+            
+                                                    <p>Olá $nome .</p>
+                                                    <p>Seu cadastro foi concluido com sucesso, seus dados para login são: <br>
+                                                        CPF: $cpf <br>
+                                                        Senha: $senha <br><br></p>
+            
+                                                    <p>Atenciosamente,<br>
+                                                        Condomínio Monte Belo</p>
+            
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <style>
+                    .bt {
+                    border:1px solid #00527c;
+                    border-radius:4px;
+                    display:inline-block;
+                    cursor:pointer;
+                    font-family:Verdana;
+                    font-weight:bold;
+                    font-size:17px;
+                    padding:12px 18px;
+                    text-decoration:none;
+                    } 
+
+                    .bt-vd {
+                    border-color:#00527c;
+                    background:linear-gradient(to bottom, #015e8db2 5%, #00527c 100%);
+                    box-shadow:inset 0px 0px 0px 0px #e3f1e3;
+                    color:#fff;
+                    text-shadow:0px 1px 0px #00527c;
+                    }
+
+                    .bt-vd:hover {
+                    background:linear-gradient(to bottom, #00527c 5%, #00527c 100%);
+                    }
+
+                    .bt:active {
+                    position:relative;
+                    top:2px;
+                    }
+                </style>
+                <script>
+                    function href(){
+                        window.location.assign('https://7fa5923830c6.ngrok.io/argon-dashboard-master/c/login.php');
+                    }
+                </script>
+                    <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                        <tr>
+                            <td align='center'>
+                                <button class='bt bt-vd' onclick='href()'>Fazer Login</button>
+                            </td>
+                        </tr>
+                    </table>
+                        </body>
+            
             </html>"
         )) {
             // rollback da "execução" das querys
