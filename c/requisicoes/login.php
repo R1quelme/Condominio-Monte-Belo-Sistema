@@ -60,13 +60,13 @@ function esqueciSenha($post, $conexao)
         cpf_cnpj = retiraMascaraCPF('$cpfModal') and email = ('$emailModal')";
     $busca = $conexao->query($q);
 
-    $registro = $busca->fetch_object(); //token 
-    $id_cadastro = $registro ->id_cadastro; //token
-
     if ($busca->num_rows == 0) {
         echo json_encode(['status' => false, 'MSG' => 'e-mail ou cpf incorreto']);
         exit;                    
     }
+
+    $registro = $busca->fetch_object(); //token 
+    $id_cadastro = $registro->id_cadastro; //token
     
     date_default_timezone_set('America/Sao_Paulo');
     $data_limite_token= date('Y-m-d H:i:s', strtotime('+1 minute'));
@@ -116,8 +116,8 @@ function esqueciSenha($post, $conexao)
         
                                                 <p>Atenciosamente,<br>
                                                     Condomínio Monte Belo</p>
+                                                    https://a934181054ed.ngrok.io/argon-dashboard-master/c/redefinir_senha.php?token={$token}
                                             </td>
-                                            <a https://3b8a0503541e.ngrok.io/argon-dashboard-master/c/redefinir_senha.php?token={$token}>Clique aqui</a>
                                     </table>
                                 </td>
                             </tr>
