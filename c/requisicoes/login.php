@@ -12,7 +12,7 @@ switch ($_POST['acao']) {
         break;
     case "redefinirSenha":
         redefinirSenha($conexao);
-    break;
+        break;
 }
 
 function login($conexao)
@@ -117,6 +117,7 @@ function esqueciSenha($post, $conexao)
                                                 <p>Atenciosamente,<br>
                                                     Condomínio Monte Belo</p>
                                             </td>
+                                            <a https://3b8a0503541e.ngrok.io/argon-dashboard-master/c/redefinir_senha.php?token={$token}>Clique aqui</a>
                                     </table>
                                 </td>
                             </tr>

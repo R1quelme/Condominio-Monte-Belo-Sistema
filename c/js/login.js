@@ -65,7 +65,7 @@ function redefinirSenha(id_cadastro, token){
     if($("#nova_senha").val() == $("#nova_senha_confirmar").val()){
         $.ajax({
             url: "requisicoes/login.php",
-            method: "POST",
+            method: "POST", 
             data: {
                 nova_senha: $("#nova_senha").val(),
                 id_cadastro: id_cadastro,

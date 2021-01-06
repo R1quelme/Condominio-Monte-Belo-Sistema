@@ -1,5 +1,6 @@
 <?php
 require_once 'conexao/conexao.php';
+require_once 'utills/funcoes.php';
 
 $token = $_GET['token']; 
 
@@ -16,12 +17,12 @@ $consulta = "
 $busca = $conexao->query($consulta);
 
 if(!$busca){
-    header('Location: tela_erro.html');
+    gerarTelaDeErro("Erro", 'ERRO!', 'UH OH! Algo de errado aconteceu.', 'Se o problema persistir contate o suporte. Mas agora você pode clicar no botão abaixo para voltar à página inicial e tentar novamente.', '../login.php');
     exit;
 }
 
 if($busca->num_rows == 0) {
-    header('Location: sempermissao.html');
+    gerarTelaDeErro("Sem permissão", 'ERRO!', 'UH OH! Você não tem permissão.', 'Você não tem permissão para acessar a página que voce está procurando. Mas você pode clicar no botão abaixo para voltar à página inicial.', '../login.php');
     exit;
 }
 ?>

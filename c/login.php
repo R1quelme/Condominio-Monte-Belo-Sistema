@@ -81,10 +81,7 @@ logout();
               </div>
               <div class="row mt-3">
                 <div class="col-6">
-                  <a data-toggle="modal" data-target="#modalEsqueciSenha"><small>Esqueceu sua senha?</small></a>
-                </div>
-                <div class="col-6 text-right">
-                  <a href="token_cadastro.php" class="text-light"><small>Criar nova conta</small></a>
+                  <a data-toggle="modal" data-target="#modalEsqueciSenha" class="text-light"><small>Esqueceu sua senha?</small></a>
                 </div>
               </div>
             </div>
