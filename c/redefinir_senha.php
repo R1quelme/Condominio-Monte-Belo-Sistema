@@ -1,5 +1,6 @@
 <?php
 require_once 'conexao/conexao.php';
+require_once 'utills/pagina_erro.php';
 
 $token = $_GET['token']; 
 
@@ -14,16 +15,15 @@ $consulta = "
         token = '$token' and situacao = 'A' and data_limite > NOW()";
 
 $busca = $conexao->query($consulta);
+$registro = $busca->fetch_object();
 
 if(!$busca){
-    echo "erro";
-    // gerarTelaDeErro("Erro", 'ERRO!', 'UH OH! Algo de errado aconteceu.', 'Se o problema persistir contate o suporte. Mas agora você pode clicar no botão abaixo para voltar à página inicial e tentar novamente.', '../login.php');
+    echo gerarTelaDeErro("Erro", 'ERRO!', 'UH OH! Algo de errado aconteceu.', 'Se o problema persistir contate o suporte. Mas agora você pode clicar no botão abaixo para voltar à página inicial e tentar novamente.', 'login.php');
     exit;
 }
 
 if($busca->num_rows == 0) {
-    // gerarTelaDeErro("Sem permissão", 'ERRO!', 'UH OH! Você não tem permissão.', 'Você não tem permissão para acessar a página que voce está procurando. Mas você pode clicar no botão abaixo para voltar à página inicial.', '../login.php');
-    echo "erro";
+    echo gerarTelaDeErro("Sem permissão", 'ERRO!', 'UH OH! Você não tem permissão.', 'Você não tem permissão para acessar a página que voce está procurando. Mas você pode clicar no botão abaixo para voltar à página inicial.', 'login.php');
     exit;
 }
 ?>
@@ -83,7 +83,7 @@ if($busca->num_rows == 0) {
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" onclick="redefinirSenha(<?= $registro->id_cadastro?> , '<?= $registro->token?>')" class="btn btn-primary mt-4">Confirmar</button>
+                                    <button type="button" onclick="redefinirSenha(<?= $registro->id_cadastro?> , '<?= $registro->token?>')" class="btn btn-primary mt-4">Confirmar</button>
                                 </div>
                             </form>
                         </div>

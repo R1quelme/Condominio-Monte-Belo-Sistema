@@ -57,7 +57,7 @@ function esqueciSenha(event) {
         },
         error: function () {
             alertaMensagem("Erro, contate o suporte", 'e')
-        }
+        } 
     })
 } 
 

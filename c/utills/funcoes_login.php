@@ -14,3 +14,16 @@ function is_logado(){
         return true;
     }
 }
+
+// function is_admin(){
+//     $tipo = $_SESSION['pessoa_dividas'] ?? null;
+//     if(is_null($tipo)){
+//         return false;
+//     } else{
+//         if($tipo == 'PJ'){
+//             return true;
+//         } else{
+//             return false;
+//         }
+//     }
+// }
