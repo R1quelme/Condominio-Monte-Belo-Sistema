@@ -16,7 +16,7 @@ function envia_email($destinatario, $subject, $conteudo)
 
     require_once('../PHPMailer/PHPMailerAutoload.php');
     $email = "matheusriquelme720@gmail.com";
-    $senha = "2000cruzeiro";
+    $senha = "*********";
 
     $mail = new PHPMailer();
     $mail->isSMTP();
