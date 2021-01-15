@@ -12,3 +12,4 @@
 <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css?_=<?= time() ?>" type="text/css">
 <!-- Argon CSS -->
 <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0<?= time() ?>" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">

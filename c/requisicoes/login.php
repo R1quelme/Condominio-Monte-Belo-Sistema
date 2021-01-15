@@ -35,6 +35,7 @@ function login($conexao)
 
     $registro = $busca->fetch_object();
     if ($senha == $registro->senha) {
+        $_SESSION['id_cadastro_condominio'] = $registro->id_cadastro;
         $_SESSION['nome_condominio'] = $registro->nome;
         $_SESSION['cpf_condominio'] = $registro->cpf_cnpj;
         $_SESSION['tipo_condominio'] = $registro->administrador;

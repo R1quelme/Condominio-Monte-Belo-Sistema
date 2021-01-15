@@ -50,6 +50,7 @@ function esqueciSenha(event) {
         success: function (dados) {
             dados = JSON.parse(dados)
             if (dados.status == true) {
+                $('#modalEsqueciSenha').modal('hide'); 
                 alertaMensagem("E-mail enviado com sucesso", 's')
             } else{
                 alertaMensagem(dados.MSG, 'w')

@@ -13,7 +13,7 @@ if (!is_logado()) {
   <?php require_once 'includes/head.php' ?>
 </head>
 
-<body>
+<body id="body">
   <!-- Sidenav -->
   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
@@ -381,22 +381,27 @@ if (!is_logado()) {
             </div>
           </div>
 
-          <form>
-            <div class="row">
-              <div class="col-xl-10 col-md-20">
-                <div class="card card-stats">
-                  <!-- Card body -->
-                  <div class="card-body">
-                    <div class="input-group">
-                      <input class="form-control" placeholder="Gerar URl de criar cadastro" type="text" id="url" value="">&nbsp;&nbsp;
-                      <button type="button" class="btn btn-outline-primary" onclick="geraURL(event)">Gerar</button>&nbsp;
-                      <button type="button" class="btn btn-outline-secondary" onclick="copiarTexto()">Copiar</button>
+          <?php
+          if (is_admin()) { ?>
+            <form>
+              <div class="row">
+                <div class="col-xl-10 col-md-20">
+                  <div class="card card-stats">
+                    <!-- Card body -->
+                    <div class="card-body">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="Gerar URl de criar cadastro" type="text" id="url" value="">&nbsp;&nbsp;
+                        <button type="button" class="btn btn-outline-primary" onclick="geraURL(event)">Gerar</button>&nbsp;
+                        <button type="button" class="btn btn-outline-secondary" onclick="copiarTexto()">Copiar</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          <?php
+          }
+          ?>
 
 
           <!-- Card stats -->
@@ -501,16 +506,62 @@ if (!is_logado()) {
           <div class="card-header bg-transparent">
             <div class="row align-items-center">
               <div class="col">
-                <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                <h5 class="h3 mb-0">Total orders</h5>
+                <h6 class="text-uppercase text-muted ls-1 mb-1">Moradores</h6>
+                <h5 class="h3 mb-0">Dados dos moradores</h5>
               </div>
             </div>
           </div>
+         <style>
+           .table thead th {
+            font-size: .95rem;
+            font-weight: bolder;
+            
+           }
+           .table th, .table td  {
+            font-size: .8655rem;
+           }
+
+           
+         </style>
           <div class="card-body">
             <!-- Chart -->
             <div class="chart">
-
+            <?php if(is_admin()){ ?>
+              <table id="tabela_moradores" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-detail-view="true" data-show-export="true" data-click-to-select="true" data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true">
+                <thead>
+                  <tr>
+                    <th scope="col" data-field="id_cad" data-visible="false"></th>
+                    <th scope="col" data-field="modal"></th>
+                    <th scope="col" data-field="divida" data-checkbox="true"></th>
+                    <th scope="col" data-field="nome">Nome</th>
+                    <th scope="col" data-field="telefone1">Telefone</th>
+                    <th scope="col" data-field="cpf_cnpj">CPF/CNPJ</th>
+                  </tr>
+                </thead>
+              </table>
+            <?php }?>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -556,6 +607,8 @@ if (!is_logado()) {
   <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="assets/js/argon.js?v=1.2.0"></script>
+  <!-- bootstrap table -->
+  <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
 
   <script>
     function alertaMensagem(texto, status) {
@@ -600,6 +653,62 @@ if (!is_logado()) {
         }
       })
     }
+
+    function buscarSolicitacao() {
+      $.ajax({
+        url: "requisicoes/busca_solicitacao.php",
+        data: {
+          tipo: 'busca_solicitacao'
+        },
+        success: function(result) {
+          $('#tabela_moradores').bootstrapTable('destroy')
+          $('#tabela_moradores').bootstrapTable({
+            data: JSON.parse(result),
+            onExpandRow: function (index, row, $detail) {
+              dependentes(row.id_dependentes, $detail)
+            }
+          })
+          $('#tabela_moradores').bootstrapTable('refreshOptions', {
+            classes: "table"
+          })
+        }
+      })
+    }
+
+    function dependentes(id_dependente, subtable) {
+      $.ajax({
+        url: "busca_solicitacao.php",
+        method: "GET",
+        data: {
+          id_dependente: id_dependente,
+          acao: 'dependentes'
+        },
+        success: function (result) {
+            criaTabela(subtable, JSON.parse(result))
+        }
+      })
+    }
+    var indice_table = 0;
+
+    function criaTabela(table, dadostable) {
+      table = table.html(`
+      <table class="tabela_clientes" id='table_${indice_table}'>
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="id_dependente">Dependentes</th>
+                        <th scope="col" data-field="parentesco">Parentesco</th>
+                    </tr>
+                </thead>
+            </table>
+      `).find('table')
+      table.bootstrapTable({
+        data: dadosTable,
+        classes: "table"
+      })
+      indice_table++
+    }
+
+    buscarSolicitacao()
   </script>
   <script src="tata-master/dist/tata.js"></script>
 
